@@ -1,0 +1,165 @@
+/* index.css */
+.job-details-container {
+  padding: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+}
+
+.job-details-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.company-logo {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.job-header-info {
+  display: flex;
+  gap: 20px;
+  font-size: 14px;
+  color: #6c757d;
+}
+
+.job-location,
+.job-type,
+.job-rating {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.job-location {
+  color: #28a745; /* Green for location */
+}
+
+.job-type {
+  color: #007bff; /* Blue for job type */
+}
+
+.job-rating {
+  color: #f39c12; /* Yellow for rating */
+}
+
+.job-details-header h1 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+.job-details-header p {
+  font-size: 16px;
+  color: #555;
+}
+
+button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.visit-company-button a {
+  text-decoration: none;
+  color: white;
+}
+
+.skills {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.skill {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+}
+
+.skill img {
+  width: 30px;
+  height: 30px;
+}
+
+.similar-jobs-list {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 30px;
+}
+
+.similar-job {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.similar-job h3 {
+  font-size: 18px;
+  color: #333;
+}
+
+.similar-job img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.error-view {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+}
+.image {
+  width: 80%;
+}
+.error-view button {
+  background-color: #e74c3c;
+  border-radius: 5px;
+}
+.A {
+  display: flex;
+  justify-content: space-between;
+}
+
+.error-view button:hover {
+  background-color: #c0392b;
+}
+.list1{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.life-at-company {
+  gap: 20px;
+  display: flex;
+}
+.A1 {
+  display: flex;
+  gap: 10px;
+}
+.life-at-company img {
+  width: 40%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.life-at-company p {
+  font-size: 16px;
+  color: #555;
+  margin-top: 10px;
+}

@@ -1,0 +1,26 @@
+/* NotFound/index.css */
+.not-found-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 100vh;
+  background-color: #f8fafc;
+}
+
+.not-found-container img {
+  height: 300px;
+  margin-bottom: 24px;
+}
+
+.not-found-container h1 {
+  font-size: 36px;
+  color: #1e293b;
+  margin-bottom: 16px;
+}
+
+.not-found-container p {
+  font-size: 18px;
+  color: #475569;
+}
