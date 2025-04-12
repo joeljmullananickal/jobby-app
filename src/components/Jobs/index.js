@@ -20,6 +20,14 @@ const salaryRangesList = [
   {salaryRangeId: '4000000', label: '40 LPA and above'},
 ]
 
+const locationList = [
+  {locationId: 'HYDERABAD', label: 'Hyderabad'},
+  {locationId: 'BANGLORE', label: 'Banglore'},
+  {locationId: 'CHENNAI', label: 'Chennai'},
+  {locationId: 'MUMBAI', label: 'Mumbai'},
+  {locationId: 'DELHI', label: 'Delhi'},
+]
+
 class Jobs extends Component {
   state = {
     profileData: null,
@@ -27,6 +35,7 @@ class Jobs extends Component {
     searchInput: '',
     selectedEmploymentTypes: [],
     selectedSalaryRange: '',
+    selectedLocationList: [],
     isLoading: true,
     hasError: false,
   }
@@ -52,11 +61,16 @@ class Jobs extends Component {
   }
 
   fetchJobsData = async () => {
-    const {searchInput, selectedEmploymentTypes, selectedSalaryRange} =
-      this.state
+    const {
+      searchInput,
+      selectedEmploymentTypes,
+      selectedSalaryRange,
+      selectedLocationList,
+    } = this.state
     const jwtToken = Cookies.get('jwt_token')
     const employmentTypeFilter = selectedEmploymentTypes.join(',')
-    const apiUrl = `https://apis.ccbp.in/jobs?employment_type=${employmentTypeFilter}&minimum_package=${selectedSalaryRange}&search=${searchInput}`
+    const locationFilter = selectedLocationList.join(',')
+    const apiUrl = `https://apis.ccbp.in/jobs?employment_type=${employmentTypeFilter}&location=${locationFilter}&minimum_package=${selectedSalaryRange}&search=${searchInput}`
     const options = {
       headers: {Authorization: `Bearer ${jwtToken}`},
     }
@@ -82,29 +96,52 @@ class Jobs extends Component {
     const {selectedEmploymentTypes} = this.state
     const employmentType = event.target.value
     if (event.target.checked) {
-      this.setState({
-        selectedEmploymentTypes: [...selectedEmploymentTypes, employmentType],
-      })
-      this.fetchJobsData()
+      this.setState(
+        {
+          selectedEmploymentTypes: [...selectedEmploymentTypes, employmentType],
+        },
+        this.fetchJobsData,
+      )
     } else {
-      this.setState({
-        selectedEmploymentTypes: selectedEmploymentTypes.filter(
-          item => item !== employmentType,
-        ),
-      })
-      this.fetchJobsData()
+      this.setState(
+        {
+          selectedEmploymentTypes: selectedEmploymentTypes.filter(
+            item => item !== employmentType,
+          ),
+        },
+        this.fetchJobsData,
+      )
     }
   }
-  handleRetry1 = () => {
-    this.setState({isLoading: true, hasError: false}, this.fetchJobsData())
+
+  handleLocationChange = event => {
+    const {selectedLocationList} = this.state
+    const locationType = event.target.value
+    if (event.target.checked) {
+      this.setState(
+        {
+          selectedLocationList: [...selectedLocationList, locationType],
+        },
+        this.fetchJobsData,
+      )
+    } else {
+      this.setState(
+        {
+          selectedLocationList: selectedLocationList.filter(
+            item => item !== locationType,
+          ),
+        },
+        this.fetchJobsData,
+      )
+    }
   }
-  handleRetry2 = () => {
+
+  handleRetry1 = () => {
     this.setState({isLoading: true, hasError: false}, this.fetchJobsData())
   }
 
   handleSalaryRangeChange = event => {
-    this.setState({selectedSalaryRange: event.target.value})
-    this.fetchJobsData()
+    this.setState({selectedSalaryRange: event.target.value}, this.fetchJobsData)
   }
 
   render() {
@@ -116,6 +153,7 @@ class Jobs extends Component {
       searchInput,
       selectedEmploymentTypes,
       selectedSalaryRange,
+      selectedLocationList,
     } = this.state
 
     return (
@@ -128,7 +166,11 @@ class Jobs extends Component {
           )}
           {hasError && (
             <div className="error-view">
-              <button type="button" onClick={this.handleretry1}>
+              <button
+                type="button"
+                data-testid="retryProfile"
+                onClick={this.handleRetry1}
+              >
                 Retry
               </button>
             </div>
@@ -145,42 +187,61 @@ class Jobs extends Component {
             </div>
           )}
           <hr />
-          <h1>Type Of Employment</h1>
-          <ul className="F">
-            <li>
-              {employmentTypesList.map(type => (
-                <label key={type.employmentTypeId}>
-                  <input
-                    type="checkbox"
-                    value={type.employmentTypeId}
-                    checked={selectedEmploymentTypes.includes(
-                      type.employmentTypeId,
-                    )}
-                    onChange={this.handleEmploymentTypeChange}
-                  />
-                  {type.label}
-                </label>
-              ))}
-            </li>
-          </ul>
-          <hr />
-          <h1>Salary Range</h1>
-          <ul className="F">
-            <li>
-              {salaryRangesList.map(range => (
-                <label key={range.salaryRangeId}>
-                  <input
-                    type="radio"
-                    name="salaryRange"
-                    value={range.salaryRangeId}
-                    checked={selectedSalaryRange === range.salaryRangeId}
-                    onChange={this.handleSalaryRangeChange}
-                  />
-                  {range.label}
-                </label>
-              ))}
-            </li>
-          </ul>
+          <div className="sticky">
+            <h1>Type Of Employment</h1>
+            <ul className="F">
+              <li>
+                {employmentTypesList.map(type => (
+                  <label key={type.employmentTypeId}>
+                    <input
+                      type="checkbox"
+                      value={type.employmentTypeId}
+                      checked={selectedEmploymentTypes.includes(
+                        type.employmentTypeId,
+                      )}
+                      onChange={this.handleEmploymentTypeChange}
+                    />
+                    {type.label}
+                  </label>
+                ))}
+              </li>
+            </ul>
+            <hr />
+            <h1>Salary Range</h1>
+            <ul className="F">
+              <li>
+                {salaryRangesList.map(range => (
+                  <label key={range.salaryRangeId}>
+                    <input
+                      type="radio"
+                      name="salaryRange"
+                      value={range.salaryRangeId}
+                      checked={selectedSalaryRange === range.salaryRangeId}
+                      onChange={this.handleSalaryRangeChange}
+                    />
+                    {range.label}
+                  </label>
+                ))}
+              </li>
+            </ul>
+            <hr />
+            <h1>Locations</h1>
+            <ul className="F">
+              <li>
+                {locationList.map(type => (
+                  <label key={type.locationId}>
+                    <input
+                      type="checkbox"
+                      value={type.locationId}
+                      checked={selectedLocationList.includes(type.locationId)}
+                      onChange={this.handleLocationChange}
+                    />
+                    {type.label}
+                  </label>
+                ))}
+              </li>
+            </ul>
+          </div>
         </div>
 
         <div className="jobs1">
@@ -218,7 +279,11 @@ class Jobs extends Component {
                 />
                 <h1>Oops! Something Went Wrong</h1>
                 <p>We cannot seem to find the page you are looking for.</p>
-                <button type="button" onClick={this.handleretry2}>
+                <button
+                  type="button"
+                  data-testid="retryJobs"
+                  onClick={this.handleRetry1}
+                >
                   Retry
                 </button>
               </div>
@@ -238,7 +303,7 @@ class Jobs extends Component {
               <ul className="jobs-list">
                 {jobsData.map(job => (
                   <li key={job.id}>
-                    <Link to={`/jobs/${job.id}`}>
+                    <Link to={`/jobs/${job.id}`} className="job-link">
                       <div>
                         <div className="A">
                           <img
@@ -257,16 +322,14 @@ class Jobs extends Component {
                         <div className="A1">
                           <ul className="A2">
                             <li>
-                              <FaMapMarkerAlt />
+                              <p className="list">
+                                <FaMapMarkerAlt /> {job.location}
+                              </p>
                             </li>
                             <li>
-                              <p>{job.location}</p>
-                            </li>
-                            <li>
-                              <GiBriefcase />
-                            </li>
-                            <li>
-                              <p>{job.employment_type}</p>
+                              <p className="list">
+                                <GiBriefcase /> {job.employment_type}
+                              </p>
                             </li>
                           </ul>
                           <p>{job.package_per_annum}</p>

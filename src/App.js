@@ -8,10 +8,6 @@ import ProtectedRoute from './components/ProtectedRoute'
 import Header from './components/Header'
 import './App.css'
 
-// These are the lists used in the application. You can move them to any component needed.
-
-// Replace your code here
-
 const App = () => (
   <>
     <Switch>
@@ -22,8 +18,7 @@ const App = () => (
           <ProtectedRoute exact path="/" component={Home} />
           <ProtectedRoute exact path="/jobs" component={Jobs} />
           <ProtectedRoute exact path="/jobs/:id" component={JobItemDetails} />
-          <Route exact path="/not-found" component={NotFound} />
-          <Redirect to="not-found" />
+          <Route component={NotFound} />
         </Switch>
       </ProtectedRoute>
     </Switch>

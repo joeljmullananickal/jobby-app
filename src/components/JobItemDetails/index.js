@@ -58,7 +58,7 @@ class JobItemDetails extends Component {
             />
             <h1>Oops! Something Went Wrong</h1>
             <p>We cannot seem to find the page you are looking for.</p>
-            <button type="button" onClick={this.fetchJobsDetails}>
+            <button type="button" onClick={this.fetchJobDetails}>
               Retry
             </button>
           </div>
@@ -137,17 +137,19 @@ class JobItemDetails extends Component {
                         className="company-logo"
                       />
                       <div>
-                        <h3>{job.title}</h3>
+                        <h1>{job.title}</h1>
                         <div className="job-rating">
                           <FaStar />
                           <p>{job.rating}</p>
                         </div>
                       </div>
                     </div>
-                    <h1>Description</h1>
-                    <p>{job.job_description}</p>
+                    <div className="group">
+                      <h4>Description</h4>
+                      <p>{job.job_description}</p>
+                    </div>
                     <ul className="list1">
-                      <li>
+                      <li className="group">
                         <div className="job-location">
                           <FaMapMarkerAlt /> <p>{job.location}</p>
                         </div>

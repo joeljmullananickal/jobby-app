@@ -2,7 +2,7 @@
 .jobs-container {
   display: flex;
   flex-direction: column;
-  padding: 24px;
+  padding: 10px;
   background-color: #f8fafc;
   color: black;
 }
@@ -13,6 +13,9 @@
   align-items: center;
   text-align: center;
   margin-bottom: 32px;
+}
+.sticky {
+  position: sticky;
 }
 
 .profile-image {
@@ -57,6 +60,11 @@
 .jobs1 {
   width: 45%;
 }
+.job-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
 
 .jobs-list {
   list-style: none;
@@ -68,7 +76,7 @@
 }
 .A {
   display: flex;
-  align-items: center;
+  justify-content: flex-start;
   gap: 8px;
 }
 .Z {
@@ -82,8 +90,13 @@
 }
 .A2 {
   display: flex;
-  align-items: center;
   gap: 8px;
+}
+.list {
+  box-shadow: none;
+  border: none;
+  outline: none;
+  padding: 0px;
 }
 .A1 {
   display: flex;
