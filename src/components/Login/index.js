@@ -14,6 +14,7 @@ class Login extends Component {
   handleInputChange1 = event => {
     this.setState({username: event.target.value})
   }
+
   handleInputChange2 = event => {
     this.setState({password: event.target.value})
   }
@@ -21,7 +22,7 @@ class Login extends Component {
   handleSubmit = async event => {
     event.preventDefault()
     const {username, password} = this.state
-    const userDetails = {username: username, password: password}
+    const userDetails = {username, password}
 
     const options = {
       method: 'POST',
